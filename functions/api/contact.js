@@ -7,6 +7,9 @@
 //   TG_CHAT_ID         - chat/group ID that receives enquiries
 
 export async function onRequestPost({ request, env }) {
+  const missing = ["TURNSTILE_SECRET", "TG_BOT_TOKEN", "TG_CHAT_ID"].filter((k) => !env[k]);
+  if (missing.length) return new Response(`Server not configured, missing: ${missing.join(", ")}`, { status: 500 });
+
   const form = await request.formData();
   const field = (k, max = 2000) => String(form.get(k) || "").trim().slice(0, max);
 
@@ -25,7 +28,9 @@ export async function onRequestPost({ request, env }) {
     }),
   });
   const result = await verify.json();
-  if (!result.success) return new Response("Bot check failed", { status: 403 });
+  if (!result.success) {
+    return new Response(`Bot check failed: ${(result["error-codes"] || []).join(", ")}`, { status: 403 });
+  }
 
   // 2. Send to Telegram
   const text = [
@@ -43,7 +48,10 @@ export async function onRequestPost({ request, env }) {
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ chat_id: env.TG_CHAT_ID, text }),
   });
-  if (!tg.ok) return new Response("Could not deliver message", { status: 502 });
+  if (!tg.ok) {
+    const detail = await tg.json().catch(() => ({}));
+    return new Response(`Telegram error: ${detail.description || tg.status}`, { status: 502 });
+  }
 
   return new Response("OK");
 }

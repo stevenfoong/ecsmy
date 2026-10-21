@@ -411,13 +411,15 @@ form.addEventListener("submit", async (e) => {
   btn.disabled = true; btn.textContent = "Sending…";
   try {
     const res = await fetch("/api/contact", { method: "POST", body: new FormData(form) });
-    if (!res.ok) throw new Error(await res.text());
+    if (!res.ok) throw new Error(`${res.status}: ${(await res.text()).slice(0, 200)}`);
     form.reset();
     if (window.turnstile) window.turnstile.reset();
     statusEl.textContent = "Thanks, your message has been sent. We'll reply within one working day.";
     statusEl.classList.add("ok");
   } catch (err) {
     statusEl.textContent = "Your message couldn't be sent. Please try again in a minute.";
+    console.error("Contact form error:", err.message);
+    if (/localhost|pages\.dev/.test(location.hostname)) statusEl.textContent += " (" + err.message + ")";
     statusEl.classList.add("err");
   } finally {
     btn.disabled = false; btn.textContent = "Send message";
