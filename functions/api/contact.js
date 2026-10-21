@@ -50,10 +50,7 @@ export async function onRequestPost({ request, env }) {
   });
   if (!tg.ok) {
     const detail = await tg.json().catch(() => ({}));
-    return new Response(
-      `Telegram error: ${detail.description || tg.status} (chat_id used: ${JSON.stringify(env.TG_CHAT_ID)})`,
-      { status: 502 }
-    );
+    return new Response(`Telegram error: ${detail.description || tg.status}`, { status: 502 });
   }
 
   return new Response("OK");
