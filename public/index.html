@@ -419,7 +419,7 @@ form.addEventListener("submit", async (e) => {
   } catch (err) {
     statusEl.textContent = "Your message couldn't be sent. Please try again in a minute.";
     console.error("Contact form error:", err.message);
-    if (/localhost|pages\.dev/.test(location.hostname)) statusEl.textContent += " (" + err.message + ")";
+    if (/localhost|pages\.dev/.test(location.hostname) || location.search.includes("debug")) statusEl.textContent += " (" + err.message + ")";
     statusEl.classList.add("err");
   } finally {
     btn.disabled = false; btn.textContent = "Send message";
