@@ -1,0 +1,14 @@
+# Old Blogger URLs -> new site (301 = permanent, keeps search ranking)
+/p/core-expertise.html      /#services   301
+/p/products.html            /#services   301
+/p/open-source-project.html /            301
+/p/about-us.html            /#about      301
+/p/contact-us.html          /#contact    301
+/search                     /            301
+/feeds/*                    /            301
+/2012/*                     /            301
+/2013/*                     /            301
+/2014/*                     /            301
+
+# Friendly path for the retired notice
+/retired                    /retired.html 200

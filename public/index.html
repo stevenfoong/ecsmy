@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Elements Computer System</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Elements Computer System helps Malaysian SMEs replace manual data entry, spreadsheet juggling and WhatsApp back-and-forth with reliable automation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single column, wide gutters; a process "pipeline" motif carries the hero and the how-we-work steps */
+:root {
+  --bg: #f4f6f5;
+  --surface: #ffffff;
+  --fg: #14211f;
+  --muted: #586764;
+  --line: #d7dfdc;
+  --accent: #0d6b62;
+  --accent-ink: #ffffff;
+  --manual: #b4581f;
+  --manual-bg: #fbeee5;
+  --auto-bg: #e3f1ee;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --maxw: 1080px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1716; --surface: #16211f; --fg: #e6eeec; --muted: #9aaba7; --line: #2a3a37;
+    --accent: #4fc2b3; --accent-ink: #062320; --manual: #f0a06c; --manual-bg: #2f2018; --auto-bg: #143330;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1716; --surface: #16211f; --fg: #e6eeec; --muted: #9aaba7; --line: #2a3a37;
+  --accent: #4fc2b3; --accent-ink: #062320; --manual: #f0a06c; --manual-bg: #2f2018; --auto-bg: #143330;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+}
+.wrap {
+  max-width: var(--maxw); margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.1rem, 5.2vw, 3.6rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 500; }
+p { margin: 0; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+.eyebrow {
+  font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--muted);
+}
+.lede { color: var(--muted); font-size: 1.12rem; max-width: 60ch; }
+.btn {
+  display: inline-block; padding: 0.8rem 1.3rem; border-radius: 6px; font-weight: 600;
+  text-decoration: none; font-family: var(--font-body); font-size: 1rem; border: 1px solid transparent; cursor: pointer;
+}
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-ghost { border-color: var(--line); color: var(--fg); background: transparent; }
+
+/* Header */
+header.site { border-bottom: 1px solid var(--line); background: var(--bg); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.9rem; }
+.brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--fg); }
+.brand-mark {
+  font-family: var(--font-mono); font-weight: 500; font-size: 0.85rem; border: 1.5px solid var(--fg);
+  padding: 0.15rem 0.4rem; border-radius: 4px; letter-spacing: 0.04em;
+}
+.brand-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
+nav.main { display: flex; gap: 1.4rem; align-items: center; flex-wrap: wrap; }
+nav.main a { color: var(--fg); text-decoration: none; font-size: 0.95rem; }
+nav.main a:hover { color: var(--accent); }
+nav.main .btn { padding: 0.5rem 0.9rem; font-size: 0.9rem; color: var(--accent-ink); }
+@media (max-width: 760px) { nav.main a:not(.btn) { display: none; } }
+
+section { padding-block: clamp(3.5rem, 8vw, 6rem); }
+section + section { border-top: 1px solid var(--line); }
+.section-head { display: grid; gap: 0.8rem; margin-bottom: 2.5rem; max-width: 62ch; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.hero > * { min-width: 0; }
+.hero-copy { display: grid; gap: 1.3rem; }
+.hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.4rem; }
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
+
+.flow { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.4rem; display: grid; gap: 1.3rem; }
+.flow-caption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.flow-row { display: grid; gap: 0.6rem; }
+.flow-label { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; }
+.tag { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.1rem 0.45rem; border-radius: 3px; }
+.tag-manual { color: var(--manual); background: var(--manual-bg); }
+.tag-auto { color: var(--accent); background: var(--auto-bg); }
+.steps { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; list-style: none; margin: 0; padding: 0; }
+.steps li { font-size: 0.88rem; padding: 0.35rem 0.6rem; border-radius: 4px; border: 1px solid var(--line); }
+.steps.manual li { border-style: dashed; border-color: var(--manual); }
+.steps.auto li { background: var(--auto-bg); border-color: transparent; }
+.steps .arrow { border: 0; padding: 0; color: var(--muted); font-family: var(--font-mono); }
+.steps.manual .arrow, .steps.auto .arrow { border: 0; background: none; }
+
+/* Examples grid */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.grid > * { min-width: 0; }
+@media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+.example { border-top: 2px solid var(--fg); padding-top: 1rem; display: grid; gap: 0.6rem; align-content: start; }
+.example .from { font-family: var(--font-mono); font-size: 0.8rem; color: var(--manual); }
+.example .to { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); }
+.example p { color: var(--muted); }
+
+/* Services */
+.packages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.packages > * { min-width: 0; }
+@media (max-width: 860px) { .packages { grid-template-columns: 1fr; } }
+.package { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.5rem; display: grid; gap: 0.9rem; align-content: start; }
+.package.featured { border-color: var(--accent); }
+.package .kicker { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; }
+.package ul { margin: 0; padding-left: 1.1rem; color: var(--muted); display: grid; gap: 0.3rem; }
+.package .term { font-family: var(--font-mono); font-size: 0.82rem; color: var(--fg); border-top: 1px solid var(--line); padding-top: 0.8rem; }
+/* Solutions (secondary) */
+.solutions { background: var(--surface); }
+.solutions-inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+.solutions-inner > * { min-width: 0; }
+.solutions-copy { display: grid; gap: 1rem; justify-items: start; }
+.areas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 1.6rem; }
+.areas li { display: grid; gap: 0.3rem; align-content: start; border-left: 2px solid var(--line); padding-left: 0.9rem; }
+.areas p { color: var(--muted); font-size: 0.95rem; }
+@media (max-width: 860px) { .solutions-inner { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .areas { grid-template-columns: 1fr; } }
+
+/* How we work */
+.process { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; counter-reset: step; }
+.process > li { min-width: 0; display: grid; gap: 0.5rem; align-content: start; counter-increment: step; }
+.process > li::before {
+  content: "Step " counter(step); font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent);
+  border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;
+}
+.process p { color: var(--muted); font-size: 0.97rem; }
+@media (max-width: 860px) { .process { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .process { grid-template-columns: 1fr; } }
+
+/* About */
+.about-copy { display: grid; gap: 1rem; max-width: 64ch; }
+.about-copy p { color: var(--muted); }
+
+/* Contact */
+.contact { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(2rem, 5vw, 4rem); }
+.contact > * { min-width: 0; }
+@media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
+.contact-copy { display: grid; gap: 1rem; align-content: start; }
+form { display: grid; gap: 1rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.5rem; }
+.field { display: grid; gap: 0.35rem; }
+label { font-size: 0.9rem; font-weight: 500; }
+input, textarea, select {
+  font: inherit; font-size: 1rem; color: var(--fg); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 6px; padding: 0.65rem 0.75rem; width: 100%;
+}
+textarea { min-height: 7rem; resize: vertical; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
+.form-note { font-size: 0.85rem; color: var(--muted); }
+.form-status { font-size: 0.92rem; }
+.form-status.ok { color: var(--accent); }
+.form-status.err { color: var(--manual); }
+
+footer { border-top: 1px solid var(--line); padding-block: 2rem; color: var(--muted); font-size: 0.88rem; }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .steps.auto li:not(.arrow) { animation: settle 0.5s ease-out both; }
+  .steps.auto li:nth-child(3) { animation-delay: 0.1s; }
+  .steps.auto li:nth-child(5) { animation-delay: 0.2s; }
+  @keyframes settle { from { transform: translateY(4px); } to { transform: none; } }
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Elements Computer System, home">
+      <span class="brand-mark">ECS</span>
+      <span class="brand-name">Elements Computer System</span>
+    </a>
+    <nav class="main" aria-label="Main">
+      <a href="#examples">What we automate</a>
+      <a href="#services">Services</a>
+      <a href="#process">How we work</a>
+      <a href="#about">About</a>
+      <a class="btn btn-primary" href="#contact">Book a call</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<section>
+  <div class="wrap hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Automation consultancy · Malaysia</span>
+      <h1>Stop retyping the same data into three different places.</h1>
+      <p class="lede">We design and build automation for small and medium businesses: orders, receipts, reports and customer messages that move on their own, so your team can work on things that need a person.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact">Book a free 20-minute call</a>
+        <a class="btn btn-ghost" href="#examples">See what we automate</a>
+      </div>
+    </div>
+
+    <figure class="flow" aria-label="Example: a supplier ordering process before and after automation">
+      <div class="flow-row">
+        <div class="flow-label"><strong>Before</strong><span class="tag tag-manual">manual</span></div>
+        <ul class="steps manual">
+          <li>Branch sends order on WhatsApp</li><li class="arrow" aria-hidden="true">→</li>
+          <li>Copy into Excel</li><li class="arrow" aria-hidden="true">→</li>
+          <li>Total by supplier</li><li class="arrow" aria-hidden="true">→</li>
+          <li>Email each supplier</li>
+        </ul>
+      </div>
+      <div class="flow-row">
+        <div class="flow-label"><strong>After</strong><span class="tag tag-auto">automated</span></div>
+        <ul class="steps auto">
+          <li>Branch submits order</li><li class="arrow" aria-hidden="true">→</li>
+          <li>Consolidated by supplier</li><li class="arrow" aria-hidden="true">→</li>
+          <li>POs sent</li>
+        </ul>
+      </div>
+      <figcaption class="flow-caption">Example: multi-branch ingredient ordering</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="examples">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What we automate</span>
+      <h2>The repetitive work that quietly eats your week</h2>
+      <p class="lede">If someone on your team copies, retypes or chases the same information every day, it can probably be automated.</p>
+    </div>
+    <div class="grid">
+      <article class="example">
+        <span class="from">Orders from WhatsApp & spreadsheets</span>
+        <h3>Purchase orders</h3>
+        <p>Collect orders from branches or staff, consolidate them by supplier and send purchase orders automatically.</p>
+        <span class="to">→ consolidated POs, no retyping</span>
+      </article>
+      <article class="example">
+        <span class="from">Photos of receipts & bank statements</span>
+        <h3>Expenses and receipts</h3>
+        <p>Read receipts with AI, file them into a spreadsheet or database, and match them against bank statements.</p>
+        <span class="to">→ expenses recorded and reconciled</span>
+      </article>
+      <article class="example">
+        <span class="from">Customer messages on WhatsApp & Telegram</span>
+        <h3>Customer replies</h3>
+        <p>AI drafts replies to common enquiries for your staff to check and send, so customers get answers faster.</p>
+        <span class="to">→ faster, consistent replies</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Services</span>
+      <h2>Start small, then grow what works</h2>
+      <p class="lede">Every engagement starts with understanding how your business runs today. You only commit to a build once you know what it will change.</p>
+    </div>
+    <div class="packages">
+      <article class="package">
+        <span class="kicker">Start here</span>
+        <h3>Automation audit</h3>
+        <ul>
+          <li>Walk through your daily processes with your team</li>
+          <li>Find the tasks worth automating first</li>
+          <li>A written plan with effort, cost and expected time saved</li>
+        </ul>
+        <p class="term">Fixed price · about 1–2 weeks</p>
+      </article>
+      <article class="package featured">
+        <span class="kicker">Build</span>
+        <h3>Automation build</h3>
+        <ul>
+          <li>Design and build the agreed automation</li>
+          <li>Connect the tools you already use</li>
+          <li>Testing with real data, staff training and handover</li>
+        </ul>
+        <p class="term">Fixed scope · quoted after the audit</p>
+      </article>
+      <article class="package">
+        <span class="kicker">Keep it running</span>
+        <h3>Support retainer</h3>
+        <ul>
+          <li>Monitoring and fixes when something changes</li>
+          <li>Small improvements each month</li>
+          <li>A direct line to the person who built it</li>
+        </ul>
+        <p class="term">Monthly · cancel any time</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="solutions" class="solutions">
+  <div class="wrap solutions-inner">
+    <div class="solutions-copy">
+      <span class="eyebrow">Beyond automation</span>
+      <h2>Have a different IT challenge?</h2>
+      <p class="lede">Automation is our focus, but we are solution architects first. If you have a business problem and suspect technology could solve it, tell us about it. We will look at the problem, design a practical solution, and bring in the right tools or partners to deliver it.</p>
+      <a class="btn btn-ghost" href="#contact">Describe your challenge</a>
+    </div>
+    <ul class="areas">
+      <li><h3>Cloud migration</h3><p>Move servers and applications to the cloud without disrupting your team.</p></li>
+      <li><h3>Remote work setup</h3><p>Secure access to company systems for staff working from anywhere.</p></li>
+      <li><h3>Connecting your systems</h3><p>Make your accounting, POS, CRM and spreadsheets share data.</p></li>
+      <li><h3>Web apps and portals</h3><p>Simple internal tools, customer portals and order forms.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">How we work</span>
+      <h2>From first call to working automation</h2>
+    </div>
+    <ol class="process">
+      <li><h3>Talk</h3><p>A free 20-minute call about what is taking up your team's time.</p></li>
+      <li><h3>Audit</h3><p>We map the process and agree on what to automate first, and what it should save.</p></li>
+      <li><h3>Build</h3><p>We build and test it with your real data, then train your team to use it.</p></li>
+      <li><h3>Support</h3><p>We keep it running and improve it as your business changes.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="about-copy">
+      <span class="eyebrow">About</span>
+      <h2>Hi, I'm Steven.</h2>
+      <p>I started Elements Computer System to look after servers, networks and PCs for local businesses. Over the years I have run infrastructure across on-premise servers and the cloud, and the most useful work was always the same: fixing the process, not just the machine.</p>
+      <p>Today ECS focuses on automation. I design solutions around how your business actually works, use tools that fit your size and budget, and stay involved after it goes live.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact">
+    <div class="contact-copy">
+      <span class="eyebrow">Contact</span>
+      <h2>Tell us what is slowing your team down</h2>
+      <p class="lede">Describe the task in a few sentences. We reply within one working day to arrange a short call.</p>
+    </div>
+    <form id="contact-form" novalidate>
+      <div class="row2">
+        <div class="field"><label for="c-name">Name</label><input id="c-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="c-company">Company</label><input id="c-company" name="company" autocomplete="organization"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="c-phone">WhatsApp / phone</label><input id="c-phone" name="phone" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="field">
+        <label for="c-message">What would you like to automate?</label>
+        <textarea id="c-message" name="message" required placeholder="e.g. Our 4 branches send orders on WhatsApp and someone retypes them into Excel every morning."></textarea>
+      </div>
+      <!-- Cloudflare Turnstile widget; replace the sitekey with your own -->
+      <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY"></div>
+      <button class="btn btn-primary" type="submit" id="c-submit">Send message</button>
+      <p class="form-status" id="c-status" role="status"></p>
+      <p class="form-note">Your details are only used to reply to you.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Elements Computer System</span>
+    <span>Automation consultancy · Malaysia</span>
+  </div>
+</footer>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+const form = document.getElementById("contact-form");
+const statusEl = document.getElementById("c-status");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  statusEl.className = "form-status";
+  if (!form.checkValidity()) {
+    statusEl.textContent = "Please fill in your name, email and a short description.";
+    statusEl.classList.add("err");
+    return;
+  }
+  const btn = document.getElementById("c-submit");
+  btn.disabled = true; btn.textContent = "Sending…";
+  try {
+    const res = await fetch("/api/contact", { method: "POST", body: new FormData(form) });
+    if (!res.ok) throw new Error(await res.text());
+    form.reset();
+    if (window.turnstile) window.turnstile.reset();
+    statusEl.textContent = "Thanks, your message has been sent. We'll reply within one working day.";
+    statusEl.classList.add("ok");
+  } catch (err) {
+    statusEl.textContent = "Your message couldn't be sent. Please try again in a minute.";
+    statusEl.classList.add("err");
+  } finally {
+    btn.disabled = false; btn.textContent = "Send message";
+  }
+});
+</script>
+</body>
+</html>
