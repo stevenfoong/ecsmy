@@ -1,33 +1,12 @@
-// Cloudflare Worker: serves the static site and handles the contact form.
-// Contact flow: verify Turnstile -> send message to Telegram.
+// Cloudflare Pages Function: POST /api/contact
+// Verify Turnstile -> send enquiry to Telegram.
 //
-// Secrets (set with `npx wrangler secret put <NAME>`):
+// Secrets (Pages project > Settings > Variables and Secrets):
 //   TURNSTILE_SECRET   - Turnstile secret key
 //   TG_BOT_TOKEN       - Telegram bot token
 //   TG_CHAT_ID         - chat/group ID that receives enquiries
 
-const RETIRED_HOSTS = ["blog.ecsmy.com", "guide.ecsmy.com"];
-
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-
-    // Old subdomains (if routed to this Worker) all land on the retired notice
-    if (RETIRED_HOSTS.includes(url.hostname)) {
-      return Response.redirect("https://www.ecsmy.com/retired", 301);
-    }
-
-    if (url.pathname === "/api/contact") {
-      if (request.method !== "POST") return new Response("Method not allowed", { status: 405 });
-      return handleContact(request, env);
-    }
-
-    // Everything else: static files from /public (including _redirects)
-    return env.ASSETS.fetch(request);
-  },
-};
-
-async function handleContact(request, env) {
+export async function onRequestPost({ request, env }) {
   const form = await request.formData();
   const field = (k, max = 2000) => String(form.get(k) || "").trim().slice(0, max);
 

@@ -1,10 +1,5 @@
 {
-  "name": "ecsmy-site",
-  "main": "src/worker.js",
-  "compatibility_date": "2026-09-01",
-  "assets": {
-    "directory": "./public",
-    "binding": "ASSETS",
-    "run_worker_first": ["/api/*"]
-  }
+  "name": "ecsmy",
+  "pages_build_output_dir": "./public",
+  "compatibility_date": "2026-09-01"
 }

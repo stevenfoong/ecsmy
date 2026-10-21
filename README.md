@@ -1,30 +1,30 @@
 # ecsmy.com
 
-Company website for Elements Computer System. Static HTML served by a Cloudflare Worker, with a contact form that sends enquiries to Telegram (protected by Turnstile).
+Company website for Elements Computer System. Static HTML on Cloudflare Pages, with a Pages Function that sends contact-form enquiries to Telegram (protected by Turnstile).
 
 ## Structure
 
 ```
 public/
-  index.html     Home page (all sections)
-  retired.html   Notice for the retired blog/guide subdomains
-  _redirects     Old Blogger URLs -> new pages
-src/worker.js    Contact form handler (Turnstile + Telegram)
-wrangler.jsonc   Worker config
+  index.html          Home page (all sections)
+  retired.html        Notice for the retired blog/guide subdomains
+  _redirects          Old Blogger URLs -> new pages
+functions/api/contact.js   Contact form handler (Turnstile + Telegram)
+wrangler.jsonc       Pages config (output dir = public)
 ```
 
 ## Editing
 
-Text changes: edit `public/index.html` directly on GitHub. Pushing to `main` redeploys automatically (once connected below).
+Edit `public/index.html` directly on GitHub. Every push to `main` redeploys automatically.
 
 ## Setup (one time)
 
-1. **Connect the repo:** Cloudflare dashboard → Workers & Pages → Create → Import a repository → pick this repo. Build command: none. Deploy command: `npx wrangler deploy`.
-2. **Secrets:** in the Worker's Settings → Variables and Secrets, add `TURNSTILE_SECRET`, `TG_BOT_TOKEN`, `TG_CHAT_ID`.
-3. **Turnstile:** create a widget for `www.ecsmy.com`, put the site key in `index.html` (`YOUR_TURNSTILE_SITE_KEY`).
-4. **Domain:** Worker → Settings → Domains & Routes → add custom domain `www.ecsmy.com` (and `ecsmy.com` redirecting to www).
-5. **Retired subdomains:** add `blog.ecsmy.com` and `guide.ecsmy.com` as custom domains on the same Worker. The Worker redirects both to `/retired`.
-   (Alternative: a Cloudflare Redirect Rule per hostname → `https://www.ecsmy.com/retired`.)
+1. **Pages project:** connected to this repo. Build command: none. Build output directory: `public` (also set by `wrangler.jsonc`).
+2. **Secrets:** Pages project → Settings → Variables and Secrets: `TURNSTILE_SECRET`, `TG_BOT_TOKEN`, `TG_CHAT_ID`. Redeploy after adding them.
+3. **Turnstile:** create a widget for `www.ecsmy.com` (and `ecsmy.pages.dev` for testing), put the site key in `index.html` (`YOUR_TURNSTILE_SITE_KEY`).
+4. **Domain:** Pages project → Custom domains → add `www.ecsmy.com`. Add a Redirect Rule so `ecsmy.com` → `https://www.ecsmy.com`.
+5. **Retired subdomains:** for `blog.ecsmy.com` and `guide.ecsmy.com`, create proxied DNS records (e.g. AAAA `100::`) and a Redirect Rule:
+   hostname is in {blog.ecsmy.com guide.ecsmy.com} → `https://www.ecsmy.com/retired` (301).
 
 ## Cutover from Blogger
 
